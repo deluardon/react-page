@@ -9,7 +9,7 @@ const MainLayout = () => {
     return (
         <div>
             <Navber></Navber>
-            <div className="hero min-h-[calc(100vh-136px)] ">
+            <div className="hero min-h-[calc(100vh-136px)] w-11/12 mx-auto pb-14">
             <Outlet></Outlet>
             </div>
           

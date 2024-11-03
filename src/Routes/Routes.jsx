@@ -3,29 +3,42 @@ import MainLayout from "../MainLayout/MainLayout";
 import Home from "../Page/Home";
 import Cofees from "../Page/Cofees";
 import Drashbroad from "../Page/Drashbroad";
+import CofeeCard from "../Componets/CofeeCard";
+// Custom error component
 
+const routes = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <>Error Page</>,  // Use a custom error page
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+        loader: () => fetch("/categories.json"), // Adjusted path
+        children: [
+          {
+            path: "/", // Removed leading slash for nested path
+            element: <CofeeCard />,
+            loader:()=>fetch("/coffees.json")
+          },
+          {
+            path: "/category/:category", // Removed leading slash for nested path
+            element: <CofeeCard />,
+            loader:()=>fetch("/coffees.json")
+          },
+        ],
+      },
+      {
+        path: "coffees",
+        element: <Cofees />,
+      },
+      {
+        path: "dashboard",
+        element: <Drashbroad />,
+      },
+    ],
+  },
+]);
 
-const routes=createBrowserRouter([
-    {
-        path:'/',
-        element: <MainLayout></MainLayout>,
-        errorElement: <h1>error</h1>,
-        children:[
-           
-            {
-                path:'/',
-                element: <Home></Home>
-            },
-            {
-                path:'/coffees',
-                element: <Cofees></Cofees>
-            },
-            {
-                path:'/dashboard',
-                element: <Drashbroad></Drashbroad>
-            }
-        ]
-    
-    }
-])
-export default routes
+export default routes;
